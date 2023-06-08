@@ -84,6 +84,7 @@ setup(
     },
     python_requires=">=3.7",
     install_requires=[
+        "azure-core<2.0.0,>=1.23.0",
         "azure-monitor-opentelemetry-exporter>=1.0.0b13",
         "opentelemetry-instrumentation~=0.38b0",
         "opentelemetry-instrumentation-django~=0.38b0",
