@@ -40,7 +40,7 @@ class AzureDiagnosticLogging:
         with AzureDiagnosticLogging._lock:
             if not AzureDiagnosticLogging._initialized:
                 if _IS_DIAGNOSTICS_ENABLED and _DIAGNOSTIC_LOG_PATH:
-                    format = (
+                    log_format = (
                         "{"
                         + '"time":"%(asctime)s.%(msecs)03d", '
                         + '"level":"%(levelname)s", '
@@ -65,7 +65,7 @@ class AzureDiagnosticLogging:
                         )
                     )
                     formatter = logging.Formatter(
-                        fmt=format, datefmt="%Y-%m-%dT%H:%M:%S"
+                        fmt=log_format, datefmt="%Y-%m-%dT%H:%M:%S"
                     )
                     AzureDiagnosticLogging._f_handler.setFormatter(formatter)
                     AzureDiagnosticLogging._initialized = True
