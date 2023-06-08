@@ -809,8 +809,8 @@
     },{
       "filename": "sdk/monitor/azure-monitor-opentelemetry*/**/*.py",
       "words": [
-        "blrp",
         "ikey",
+        "msecs",
         "semconv",
         "updown"
       ]
@@ -818,11 +818,14 @@
     {
       "filename": "sdk/monitor/azure-monitor-opentelemetry*/**/*",
       "words": [
+        "blrp",
+        "grpc",
         "opentelemetry",
         "otel",
         "OTLP",
         "otlp",
-        "grpc",
+        "speced",
+        "pkgutils",
         "psycopg"
       ]
 },
