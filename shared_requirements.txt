@@ -7,6 +7,7 @@ six
 isodate
 azure-appconfiguration
 azure-keyvault-secrets
+azure-monitor-opentelemetry-exporter
 cryptography
 msrestazure
 python-dateutil
