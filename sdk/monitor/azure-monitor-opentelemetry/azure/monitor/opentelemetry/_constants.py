@@ -39,7 +39,7 @@ _CUSTOMER_IKEY = "unknown"
 try:
     _CUSTOMER_IKEY = ConnectionStringParser().instrumentation_key
 except ValueError as e:
-    logger.error("Failed to parse Instrumentation Key: %s" % e)
+    logger.error("Failed to parse Instrumentation Key: %s", e)
 
 
 def _get_log_path(status_log_path=False):

@@ -8,6 +8,13 @@ from logging import getLogger
 from os import environ
 from typing import Dict
 
+from opentelemetry.environment_variables import (
+    OTEL_LOGS_EXPORTER,
+    OTEL_METRICS_EXPORTER,
+    OTEL_TRACES_EXPORTER,
+)
+from opentelemetry.sdk.environment_variables import OTEL_TRACES_SAMPLER_ARG
+
 from azure.monitor.opentelemetry._constants import (
     DISABLE_LOGGING_ARG,
     DISABLE_METRICS_ARG,
@@ -16,12 +23,6 @@ from azure.monitor.opentelemetry._constants import (
     SAMPLING_RATIO_ARG,
 )
 from azure.monitor.opentelemetry._types import ConfigurationValue
-from opentelemetry.environment_variables import (
-    OTEL_LOGS_EXPORTER,
-    OTEL_METRICS_EXPORTER,
-    OTEL_TRACES_EXPORTER,
-)
-from opentelemetry.sdk.environment_variables import OTEL_TRACES_SAMPLER_ARG
 
 _INVALID_FLOAT_MESSAGE = "Value of %s must be a float. Defaulting to %s: %s"
 _INVALID_INT_MESSAGE = "Value of %s must be a integer. Defaulting to %s: %s"
@@ -88,8 +89,10 @@ def _default_logging_export_interval_ms(configurations):
             default = int(environ[LOGGING_EXPORT_INTERVAL_MS_ENV_VAR])
         except ValueError as e:
             _logger.error(
-                _INVALID_INT_MESSAGE
-                % (LOGGING_EXPORT_INTERVAL_MS_ENV_VAR, default, e)
+                _INVALID_INT_MESSAGE,
+                LOGGING_EXPORT_INTERVAL_MS_ENV_VAR,
+                default,
+                e,
             )
     configurations[LOGGING_EXPORT_INTERVAL_MS_ARG] = default
 
@@ -102,6 +105,9 @@ def _default_sampling_ratio(configurations):
             default = float(environ[SAMPLING_RATIO_ENV_VAR])
         except ValueError as e:
             _logger.error(
-                _INVALID_FLOAT_MESSAGE % (SAMPLING_RATIO_ENV_VAR, default, e)
+                _INVALID_FLOAT_MESSAGE,
+                SAMPLING_RATIO_ENV_VAR,
+                default,
+                e,
             )
     configurations[SAMPLING_RATIO_ARG] = default

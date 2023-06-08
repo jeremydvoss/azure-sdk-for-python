@@ -6,12 +6,6 @@
 import logging
 from os import environ
 
-from azure.monitor.opentelemetry.diagnostics._diagnostic_logging import (
-    AzureDiagnosticLogging,
-)
-from azure.monitor.opentelemetry.diagnostics._status_logger import (
-    AzureStatusLogger,
-)
 from opentelemetry.environment_variables import (
     OTEL_LOGS_EXPORTER,
     OTEL_METRICS_EXPORTER,
@@ -20,6 +14,13 @@ from opentelemetry.environment_variables import (
 from opentelemetry.instrumentation.distro import BaseDistro
 from opentelemetry.sdk.environment_variables import (
     _OTEL_PYTHON_LOGGING_AUTO_INSTRUMENTATION_ENABLED,
+)
+
+from azure.monitor.opentelemetry.diagnostics._diagnostic_logging import (
+    AzureDiagnosticLogging,
+)
+from azure.monitor.opentelemetry.diagnostics._status_logger import (
+    AzureStatusLogger,
 )
 
 _logger = logging.getLogger(__name__)
@@ -70,6 +71,7 @@ def _configure_auto_instrumentation() -> None:
         AzureStatusLogger.log_status(False, reason=exc)
         _logger.error(
             "Azure Monitor OpenTelemetry Distro failed during "
-            + f"configuration: {exc}"
+            + "configuration: %s",
+            exc,
         )
         raise exc
