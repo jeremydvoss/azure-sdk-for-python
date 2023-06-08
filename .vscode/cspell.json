@@ -807,23 +807,26 @@
         "dcrrole",
         "pergb"
       ]
-    },
-    {
-      "filename": "sdk/monitor/azure-monitor-opentelemetry-exporter/**/*.py",
+    },{
+      "filename": "sdk/monitor/azure-monitor-opentelemetry*/**/*.py",
       "words": [
+        "blrp",
         "ikey",
-        "semconv"
+        "semconv",
+        "updown"
       ]
     },
     {
-      "filename": "sdk/monitor/azure-monitor-opentelemetry-exporter/**/*",
+      "filename": "sdk/monitor/azure-monitor-opentelemetry*/**/*",
       "words": [
+        "opentelemetry",
         "otel",
         "OTLP",
         "otlp",
-        "grpc"
+        "grpc",
+        "psycopg"
       ]
-    },
+},
     {
       "filename": "sdk/schemaregistry/**/tests/**/*.py",
       "words": [
