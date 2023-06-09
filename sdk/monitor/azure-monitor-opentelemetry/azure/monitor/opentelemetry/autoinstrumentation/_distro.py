@@ -23,6 +23,8 @@ from azure.monitor.opentelemetry.diagnostics._status_logger import (
     AzureStatusLogger,
 )
 
+_CONFIG_FAILED_MSG = "Azure Monitor OpenTelemetry Distro failed during configuration: %s"
+
 _logger = logging.getLogger(__name__)
 _opentelemetry_logger = logging.getLogger("opentelemetry")
 # TODO: Enabled when duplicate logging issue is solved
@@ -69,9 +71,5 @@ def _configure_auto_instrumentation() -> None:
         )
     except Exception as exc:
         AzureStatusLogger.log_status(False, reason=exc)
-        _logger.error(
-            "Azure Monitor OpenTelemetry Distro failed during "
-            + "configuration: %s",
-            exc,
-        )
+        _logger.error(_CONFIG_FAILED_MSG, exc)
         raise exc
