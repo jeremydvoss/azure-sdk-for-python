@@ -83,9 +83,15 @@ configure_azure_monitor(
 ...
 ```
 
-### Samples
+### Examples
 
 Samples are available [here][samples] to demonstrate how to utilize the above configuration options.
+
+## Troubleshooting
+
+The exporter raises exceptions defined in [Azure Core](https://github.com/Azure/azure-sdk-for-python/blob/main/sdk/core/azure-core/README.md#azure-core-library-exceptions).
+
+## Next steps
 
 ### Additional documentation
 
