@@ -168,6 +168,9 @@ class TestDiagnosticLogger(TestCase):
 
     def test_off_app_service_info(self):
         set_up(is_diagnostics_enabled=False)
+        self.assertEqual(diagnostic_logger._IS_DIAGNOSTICS_ENABLED, False)
+        self.assertEqual(diagnostic_logger._DIAGNOSTIC_LOG_PATH, TEST_LOGGER_PATH)
+        check_file_is_empty()
         TEST_LOGGER.info(MESSAGE1)
         TEST_LOGGER.info(MESSAGE2)
         TEST_LOGGER_SUB_MODULE.info(MESSAGE1)

@@ -86,16 +86,9 @@ setup(
     install_requires=[
         "azure-core<2.0.0,>=1.23.0",
         "azure-monitor-opentelemetry-exporter>=1.0.0b13",
-        "opentelemetry-instrumentation~=0.38b0",
-        "opentelemetry-instrumentation-django~=0.38b0",
-        "opentelemetry-instrumentation-fastapi~=0.38b0",
-        "opentelemetry-instrumentation-flask~=0.38b0",
-        "opentelemetry-instrumentation-psycopg2~=0.38b0",
-        "opentelemetry-instrumentation-requests~=0.38b0",
-        "opentelemetry-instrumentation-urllib~=0.38b0",
-        "opentelemetry-instrumentation-urllib3~=0.38b0",
         "opentelemetry-api==1.17.0",
         "opentelemetry-sdk==1.17.0",
+        "wrapt >= 1.0.0, < 2.0.0",
     ],
     entry_points={
         "opentelemetry_distro": [
@@ -103,6 +96,15 @@ setup(
         ],
         "opentelemetry_configurator": [
             "azure_monitor_opentelemetry_configurator = azure.monitor.opentelemetry.autoinstrumentation._configurator:AzureMonitorConfigurator"
+        ],
+        "azure_monitor_opentelemetry_instrumentor": [
+            "django = azure.monitor.opentelemetry._vendor.v0_38b0.opentelemetry.instrumentation.django:DjangoInstrumentor",
+            "fastapi = azure.monitor.opentelemetry._vendor.v0_38b0.opentelemetry.instrumentation.fastapi:FastAPIInstrumentor",
+            "flask = azure.monitor.opentelemetry._vendor.v0_38b0.opentelemetry.instrumentation.flask:FlaskInstrumentor",
+            "psycopg2 = azure.monitor.opentelemetry._vendor.v0_38b0.opentelemetry.instrumentation.psycopg2:Psycopg2Instrumentor",
+            "requests = azure.monitor.opentelemetry._vendor.v0_38b0.opentelemetry.instrumentation.requests:RequestsInstrumentor",
+            "urllib = azure.monitor.opentelemetry._vendor.v0_38b0.opentelemetry.instrumentation.urllib:URLLibInstrumentor",
+            "urllib3 = azure.monitor.opentelemetry._vendor.v0_38b0.opentelemetry.instrumentation.urllib3:URLLib3Instrumentor",
         ],
     },
 )

@@ -21,15 +21,15 @@ OpenTelemetry instrumentations allow automatic collection of requests sent from 
 | [OpenTelemetry UrlLib Instrumentation][ot_instrumentation_urllib] | [urllib][pypi_urllib] | All
 | [OpenTelemetry UrlLib3 Instrumentation][ot_instrumentation_urllib3] | [urllib3][pypi_urllib3] | [link][ot_instrumentation_urllib3_version]
 
-## Getting started
-
-### Key Concepts
+## Key Concepts
 
 This package bundles a series of OpenTelemetry and Azure Monitor components to enable the collection and sending of telemetry to Azure Monitor. For MANUAL instrumentation, use the `configure_azure_monitor` function. AUTOMATIC instrumentation is not yet supported.
 
 The [Azure Monitor OpenTelemetry exporters][azure_monitor_opentelemetry_exporters] are the main components in accomplishing this. You will be able to use the exporters and their APIs directly through this package. Please go the exporter documentation to understand how OpenTelemetry and Azure Monitor components work in enabling telemetry collection and exporting.
 
 Currently, all instrumentations available in OpenTelemetry are in a beta state, meaning they are not stable and may have breaking changes in the future. Efforts are being made in pushing these to a more stable state.
+
+## Getting started
 
 ### Prerequisites
 
@@ -92,6 +92,20 @@ Samples are available [here][samples] to demonstrate how to utilize the above co
 The exporter raises exceptions defined in [Azure Core](https://github.com/Azure/azure-sdk-for-python/blob/main/sdk/core/azure-core/README.md#azure-core-library-exceptions).
 
 ## Next steps
+
+## Contributing
+
+This project welcomes contributions and suggestions.  Most contributions require you to agree to a
+Contributor License Agreement (CLA) declaring that you have the right to, and actually do, grant us
+the rights to use your contribution. For details, visit https://cla.microsoft.com.
+
+When you submit a pull request, a CLA-bot will automatically determine whether you need to provide
+a CLA and decorate the PR appropriately (e.g., label, comment). Simply follow the instructions
+provided by the bot. You will only need to do this once across all repos using our CLA.
+
+This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/).
+For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or
+contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
 
 ### Additional documentation
 

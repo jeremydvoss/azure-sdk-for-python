@@ -4,11 +4,21 @@
 
 ### Features Added
 
+- Vendor Instrumentations
+    ([#280](https://github.com/microsoft/ApplicationInsights-Python/pull/280))
+
 ### Breaking Changes
 
 ### Bugs Fixed
 
 ### Other Changes
+
+- Update samples
+    ([#281](https://github.com/microsoft/ApplicationInsights-Python/pull/281))
+- Fixed spelling
+    ([#291](https://github.com/microsoft/ApplicationInsights-Python/pull/291))
+- Fixing formatting issues for azure sdk
+    ([#292](https://github.com/microsoft/ApplicationInsights-Python/pull/292))
 
 ## 1.0.0b12(2023-05-05)
 
