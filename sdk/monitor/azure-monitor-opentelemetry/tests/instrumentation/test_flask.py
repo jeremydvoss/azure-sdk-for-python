@@ -10,6 +10,7 @@ from azure.monitor.opentelemetry._vendor.v0_38b0.opentelemetry.instrumentation.f
     FlaskInstrumentor,
 )
 
+
 class TestFlaskInstrumentation(unittest.TestCase):
     def test_instrument(self):
         excluded_urls = "client/.*/info,healthcheck"

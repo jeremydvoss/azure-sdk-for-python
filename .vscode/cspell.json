@@ -807,7 +807,25 @@
         "dcrrole",
         "pergb"
       ]
-    },{
+    },
+    {
+      "filename": "sdk/monitor/azure-monitor-opentelemetry*/**/*",
+      "words": [
+        "blrp",
+        "configurators",
+        "dbapi",
+        "grpc",
+        "opentelemetry",
+        "otel",
+        "OTLP",
+        "otlp",
+        "speced",
+        "pkgutils",
+        "psycopg",
+        "uninstrument"
+      ]
+    },
+    {
       "filename": "sdk/monitor/azure-monitor-opentelemetry*/**/*.py",
       "words": [
         "ikey",
@@ -817,19 +835,32 @@
       ]
     },
     {
-      "filename": "sdk/monitor/azure-monitor-opentelemetry*/**/*",
+      "filename": "sdk/monitor/azure-monitor-opentelemetry/azure/monitor/opentelemetry/_vendor/**/*.py",
       "words": [
-        "blrp",
-        "grpc",
-        "opentelemetry",
-        "otel",
-        "OTLP",
-        "otlp",
-        "speced",
-        "pkgutils",
-        "psycopg"
+        "aiopg",
+        "asgiref",
+        "asgi",
+        "asyncpg",
+        "boto",
+        "botocore",
+        "Cbar",
+        "funcs",
+        "grpcio",
+        "islast",
+        "libpq",
+        "owais",
+        "psutil",
+        "pydantic",
+        "pymongo",
+        "pymysql",
+        "remoulade",
+        "setifnotnone",
+        "sklearn",
+        "starlette",
+        "tortoiseorm",
+        "trysetip"
       ]
-},
+    },
     {
       "filename": "sdk/schemaregistry/**/tests/**/*.py",
       "words": [
