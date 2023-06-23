@@ -4,7 +4,7 @@
 # license information.
 # --------------------------------------------------------------------------
 from logging import getLogger
-from typing import Dict
+from typing import Dict, cast
 
 from opentelemetry._logs import get_logger_provider, set_logger_provider
 from opentelemetry.metrics import set_meter_provider
@@ -15,7 +15,7 @@ from opentelemetry.sdk.metrics.export import PeriodicExportingMetricReader
 from opentelemetry.sdk.trace import TracerProvider
 from opentelemetry.sdk.trace.export import BatchSpanProcessor
 from opentelemetry.trace import get_tracer_provider, set_tracer_provider
-from pkg_resources import iter_entry_points
+from pkg_resources import iter_entry_points  # type: ignore
 
 from azure.monitor.opentelemetry._constants import (
     DISABLE_LOGGING_ARG,
@@ -31,7 +31,7 @@ from azure.monitor.opentelemetry._vendor.v0_38b0.opentelemetry.instrumentation.d
 from azure.monitor.opentelemetry._vendor.v0_38b0.opentelemetry.instrumentation.instrumentor import (
     BaseInstrumentor,
 )
-from azure.monitor.opentelemetry.exporter import (
+from azure.monitor.opentelemetry.exporter import (  # pylint: disable=import-error
     ApplicationInsightsSampler,
     AzureMonitorLogExporter,
     AzureMonitorMetricExporter,
@@ -96,7 +96,7 @@ def configure_azure_monitor(**kwargs) -> None:
 def _setup_tracing(configurations: Dict[str, ConfigurationValue]):
     sampling_ratio = configurations[SAMPLING_RATIO_ARG]
     tracer_provider = TracerProvider(
-        sampler=ApplicationInsightsSampler(sampling_ratio=sampling_ratio),
+        sampler=ApplicationInsightsSampler(sampling_ratio=cast(float, sampling_ratio)),
     )
     set_tracer_provider(tracer_provider)
     trace_exporter = AzureMonitorTraceExporter(**configurations)
@@ -114,7 +114,7 @@ def _setup_logging(configurations: Dict[str, ConfigurationValue]):
     log_exporter = AzureMonitorLogExporter(**configurations)
     log_record_processor = BatchLogRecordProcessor(
         log_exporter,
-        schedule_delay_millis=logging_export_interval_ms,
+        schedule_delay_millis=cast(int, logging_export_interval_ms),
     )
     get_logger_provider().add_log_record_processor(log_record_processor)
     handler = LoggingHandler(logger_provider=get_logger_provider())

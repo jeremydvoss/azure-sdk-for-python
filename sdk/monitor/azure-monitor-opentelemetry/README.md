@@ -1,4 +1,4 @@
-# Azure Monitor Opentelemetry Distro
+# Azure Monitor Opentelemetry Distro client library for Python
 
 The Azure Monitor Distro of [Opentelemetry Python][ot_sdk_python] provides multiple installable components available for an Opentelemetry Azure Monitor monitoring solution. It allows you to instrument your Python applications to capture and report telemetry to Azure Monitor via the Azure monitor exporters.
 
@@ -21,7 +21,7 @@ OpenTelemetry instrumentations allow automatic collection of requests sent from 
 | [OpenTelemetry UrlLib Instrumentation][ot_instrumentation_urllib] | [urllib][pypi_urllib] | All
 | [OpenTelemetry UrlLib3 Instrumentation][ot_instrumentation_urllib3] | [urllib3][pypi_urllib3] | [link][ot_instrumentation_urllib3_version]
 
-## Key Concepts
+## Key concepts
 
 This package bundles a series of OpenTelemetry and Azure Monitor components to enable the collection and sending of telemetry to Azure Monitor. For MANUAL instrumentation, use the `configure_azure_monitor` function. AUTOMATIC instrumentation is not yet supported.
 
@@ -93,6 +93,8 @@ The exporter raises exceptions defined in [Azure Core](https://github.com/Azure/
 
 ## Next steps
 
+Check out the [documentation][azure_monitor_enable_docs] for more.
+
 ## Contributing
 
 This project welcomes contributions and suggestions.  Most contributions require you to agree to a
@@ -110,11 +112,11 @@ contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additio
 ### Additional documentation
 
 * [Azure Portal][azure_portal]
-* [Official Azure monitor docs][azure_monitor_opentelemetry]
+* [Official Azure monitor docs][azure_monitor_enable_docs]
 * [OpenTelemetry Python Official Docs][ot_python_docs]
 
 <!-- LINKS -->
-[azure_monitor_opentelemetry]: https://learn.microsoft.com/azure/azure-monitor/app/opentelemetry-enable?tabs=python
+[azure_monitor_enable_docs]: https://learn.microsoft.com/azure/azure-monitor/app/opentelemetry-enable?tabs=python
 [azure_monitor_opentelemetry_exporters]: https://github.com/Azure/azure-sdk-for-python/tree/main/sdk/monitor/azure-monitor-opentelemetry-exporter#microsoft-opentelemetry-exporter-for-azure-monitor
 [azure_portal]: https://portal.azure.com
 [azure_sub]: https://azure.microsoft.com/free/
