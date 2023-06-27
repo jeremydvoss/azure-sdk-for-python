@@ -821,7 +821,8 @@
         "speced",
         "pkgutils",
         "psycopg",
-        "uninstrument"
+        "uninstrument",
+        "uninstrumented"
       ]
     },
     {
