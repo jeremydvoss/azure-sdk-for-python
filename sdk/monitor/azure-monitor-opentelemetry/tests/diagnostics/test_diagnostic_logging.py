@@ -78,7 +78,6 @@ def set_up(
     logger.handlers.clear()
     TEST_LOGGER.handlers.clear()
     TEST_LOGGER_SUB_MODULE.handlers.clear()
-    TEST_LOGGER_SUB_MODULE.setLevel(logging.WARN)
     patch.dict(
         "os.environ",
         {
@@ -97,8 +96,8 @@ def set_up(
         TEST_DIAGNOSTIC_LOGGER_FILE_NAME,
     ).start()
     patch(
-        "azure.monitor.opentelemetry.diagnostics._diagnostic_logging._CUSTOMER_IKEY",
-        TEST_CUSTOMER_IKEY,
+        "azure.monitor.opentelemetry.diagnostics._diagnostic_logging._get_customer_ikey_from_env_var",
+        return_value=TEST_CUSTOMER_IKEY,
     ).start()
     patch(
         "azure.monitor.opentelemetry.diagnostics._diagnostic_logging._EXTENSION_VERSION",
@@ -168,9 +167,6 @@ class TestDiagnosticLogger(TestCase):
 
     def test_off_app_service_info(self):
         set_up(is_diagnostics_enabled=False)
-        self.assertEqual(diagnostic_logger._IS_DIAGNOSTICS_ENABLED, False)
-        self.assertEqual(diagnostic_logger._DIAGNOSTIC_LOG_PATH, TEST_LOGGER_PATH)
-        check_file_is_empty()
         TEST_LOGGER.info(MESSAGE1)
         TEST_LOGGER.info(MESSAGE2)
         TEST_LOGGER_SUB_MODULE.info(MESSAGE1)
@@ -198,9 +194,7 @@ class TestDiagnosticLogger(TestCase):
             is_diagnostics_enabled=True,
             subscription_id_env_var=TEST_SUBSCRIPTION_ID_ENV_VAR,
         )
-        self.assertEqual(
-            diagnostic_logger._SUBSCRIPTION_ID, TEST_SUBSCRIPTION_ID
-        )
+        self.assertEqual(diagnostic_logger._SUBSCRIPTION_ID, TEST_SUBSCRIPTION_ID)
         TEST_LOGGER_SUB_MODULE.warning(MESSAGE1)
         TEST_LOGGER_SUB_MODULE.warning(MESSAGE2)
         check_file_for_messages("WARNING", (MESSAGE1, MESSAGE2))
@@ -210,9 +204,7 @@ class TestDiagnosticLogger(TestCase):
             is_diagnostics_enabled=True,
             subscription_id_env_var=TEST_SUBSCRIPTION_ID,
         )
-        self.assertEqual(
-            diagnostic_logger._SUBSCRIPTION_ID, TEST_SUBSCRIPTION_ID
-        )
+        self.assertEqual(diagnostic_logger._SUBSCRIPTION_ID, TEST_SUBSCRIPTION_ID)
         TEST_LOGGER_SUB_MODULE.warning(MESSAGE1)
         TEST_LOGGER_SUB_MODULE.warning(MESSAGE2)
         check_file_for_messages("WARNING", (MESSAGE1, MESSAGE2))

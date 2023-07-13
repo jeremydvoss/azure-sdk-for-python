@@ -15,6 +15,8 @@ from opentelemetry.sdk.environment_variables import (
     _OTEL_PYTHON_LOGGING_AUTO_INSTRUMENTATION_ENABLED,
 )
 
+from azure.core.settings import settings
+from azure.core.tracing.ext.opentelemetry_span import OpenTelemetrySpan
 from azure.monitor.opentelemetry._vendor.v0_39b0.opentelemetry.instrumentation.distro import (
     BaseDistro,
 )
@@ -49,12 +51,6 @@ def _configure_auto_instrumentation() -> None:
         AzureStatusLogger.log_status(False, "Distro being configured.")
         AzureDiagnosticLogging.enable(_logger)
         AzureDiagnosticLogging.enable(_opentelemetry_logger)
-        # TODO: Enabled when duplicate logging issue is solved
-        # if _EXPORTER_DIAGNOSTICS_ENABLED:
-        #     exporter_logger = logging.getLogger(
-        #         "azure.monitor.opentelemetry.exporter"
-        #     )
-        #     AzureDiagnosticLogging.enable(_exporter_logger)
         environ.setdefault(
             OTEL_METRICS_EXPORTER, "azure_monitor_opentelemetry_exporter"
         )
@@ -67,6 +63,7 @@ def _configure_auto_instrumentation() -> None:
         environ.setdefault(
             _OTEL_PYTHON_LOGGING_AUTO_INSTRUMENTATION_ENABLED, "true"
         )
+        settings.tracing_implementation = OpenTelemetrySpan
         AzureStatusLogger.log_status(True)
         _logger.info(
             "Azure Monitor OpenTelemetry Distro configured successfully."

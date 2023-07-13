@@ -17,6 +17,7 @@ from azure.monitor.opentelemetry.exporter._connection_string_parser import ( # p
 # --------------------Configuration------------------------------------------
 
 CONNECTION_STRING_ARG = "connection_string"
+DISABLE_AZURE_CORE_TRACING_ARG = "disable_azure_core_tracing"
 DISABLE_LOGGING_ARG = "disable_logging"
 DISABLE_METRICS_ARG = "disable_metrics"
 DISABLE_TRACING_ARG = "disable_tracing"
@@ -36,12 +37,21 @@ _IS_DIAGNOSTICS_ENABLED = _IS_ON_APP_SERVICE
 # _EXPORTER_DIAGNOSTICS_ENABLED_ENV_VAR = (
 #     "AZURE_MONITOR_OPENTELEMETRY_DISTRO_ENABLE_EXPORTER_DIAGNOSTICS"
 # )
+_CUSTOMER_IKEY_ENV_VAR = None
 logger = logging.getLogger(__name__)
-_CUSTOMER_IKEY: Optional[str] = "unknown"
-try:
-    _CUSTOMER_IKEY = ConnectionStringParser().instrumentation_key
-except ValueError as e:
-    logger.error("Failed to parse Instrumentation Key: %s", e)
+
+
+def _get_customer_ikey_from_env_var():
+    global _CUSTOMER_IKEY_ENV_VAR
+    if not _CUSTOMER_IKEY_ENV_VAR:
+        _CUSTOMER_IKEY_ENV_VAR = "unknown"
+        try:
+            _CUSTOMER_IKEY_ENV_VAR = (
+                ConnectionStringParser().instrumentation_key
+            )
+        except ValueError as e:
+            logger.error("Failed to parse Instrumentation Key: %s", e)
+    return _CUSTOMER_IKEY_ENV_VAR
 
 
 def _get_log_path(status_log_path=False):
