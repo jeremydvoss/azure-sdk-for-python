@@ -1,15 +1,30 @@
 # Release History
 
-## 1.0.0b13 (Unreleased)
+## 1.0.0b14 (Unreleased)
+
+### Features Added
+
+### Breaking Changes
+
+### Bugs Fixed
+
+### Other Changes
+
+- Upgrade to exporter 1.0.0b14 and OTel 1.18
+    ([#295](https://github.com/microsoft/ApplicationInsights-Python/pull/295))
+- Enable Azure Core Tracing OpenTelemetry plugin
+    ([#269](https://github.com/microsoft/ApplicationInsights-Python/pull/269))
+- Fix connection string environment variable bug for manual instrumentation
+    ([#302](https://github.com/microsoft/ApplicationInsights-Python/pull/302))
+
+## [1.0.0b13](https://github.com/microsoft/ApplicationInsights-Python/releases/tag/v1.0.0b13) - 2023-06-14
 
 ### Features Added
 
 - Vendor Instrumentations
     ([#280](https://github.com/microsoft/ApplicationInsights-Python/pull/280))
-
-### Breaking Changes
-
-### Bugs Fixed
+- Support OTEL_PYTHON_DISABLED_INSTRUMENTATIONS
+    ([#294](https://github.com/microsoft/ApplicationInsights-Python/pull/294))
 
 ### Other Changes
 

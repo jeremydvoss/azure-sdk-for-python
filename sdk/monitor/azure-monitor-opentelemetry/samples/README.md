@@ -26,7 +26,7 @@ For guidance on the samples README, visit the [sample guide](https://github.com/
 |[metrics/attributes.py][attributes] | Add attributes to custom metrics counters |
 |[metrics/instruments.py][instruments] | Create observable instruments |
 
-|[tracing/django/sample/manage.py][django] | Instrument a django app |
+|[tracing/django/manage.py][django] | Instrument a django app |
 |[tracing/db_psycopg2.py][db_psycopg2] | Instrument the PsycoPG2 library |
 |[tracing/http_fastapi.py][http_fastapi] | Instrument a FastAPI app |
 |[tracing/http_flask.py][http_flask] | Instrument a Flask app |
@@ -60,8 +60,8 @@ For guidance on the samples README, visit the [sample guide](https://github.com/
 To learn more, see the [Azure Monitor OpenTelemetry Distro documentation][distro_docs] and [OpenTelemetry documentation][otel_docs]
 
 <!-- Links -->
-[distro_docs]: https://learn.microsoft.com/azure/azure-monitor/app/opentelemetry-enable?tabs=python
-[otel_docs]: https://opentelemetry.io/docs/
+[distro_docs]: [https://learn.microsoft.com/opentelemetryazure/azure-monitor/app/opentelemetry-enable?tabs=python]
+[otel_docs]: [https://opentelemetry.io/docs/]
 [correlated_logs]: https://github.com/Azure/azure-sdk-for-python/tree/main/sdk/monitor/azure-monitor-opentelemetry/samples/logging/correlated_logs.py
 [custom_properties]: https://github.com/Azure/azure-sdk-for-python/tree/main/sdk/monitor/azure-monitor-opentelemetry/samples/logging/custom_properties.py
 [exception_logs]: https://github.com/Azure/azure-sdk-for-python/tree/main/sdk/monitor/azure-monitor-opentelemetry/samples/logging/exception_logs.py
@@ -69,7 +69,7 @@ To learn more, see the [Azure Monitor OpenTelemetry Distro documentation][distro
 [logging_simple]: https://github.com/Azure/azure-sdk-for-python/tree/main/sdk/monitor/azure-monitor-opentelemetry/samples/logging/simple.py
 [attributes]: https://github.com/Azure/azure-sdk-for-python/tree/main/sdk/monitor/azure-monitor-opentelemetry/samples/metrics/attributes.py
 [instruments]: https://github.com/Azure/azure-sdk-for-python/tree/main/sdk/monitor/azure-monitor-opentelemetry/samples/metrics/instruments.py
-[django]: https://github.com/Azure/azure-sdk-for-python/tree/main/sdk/monitor/azure-monitor-opentelemetry/samples/tracing/django/sample/manage.py
+[django]: https://github.com/Azure/azure-sdk-for-python/tree/main/sdk/monitor/azure-monitor-opentelemetry/samples/tracing/django/manage.py
 [db_psycopg2]: https://github.com/Azure/azure-sdk-for-python/tree/main/sdk/monitor/azure-monitor-opentelemetry/samples/tracing/db_psycopg2.py
 [http_fastapi]: https://github.com/Azure/azure-sdk-for-python/tree/main/sdk/monitor/azure-monitor-opentelemetry/samples/tracing/http_fastapi.py
 [http_flask]: https://github.com/Azure/azure-sdk-for-python/tree/main/sdk/monitor/azure-monitor-opentelemetry/samples/tracing/http_flask.py

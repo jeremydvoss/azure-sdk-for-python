@@ -10,10 +10,10 @@ from os import makedirs
 from os.path import exists, join
 
 from azure.monitor.opentelemetry._constants import (
-    _CUSTOMER_IKEY,
     _EXTENSION_VERSION,
     _IS_DIAGNOSTICS_ENABLED,
     _env_var_or_default,
+    _get_customer_ikey_from_env_var,
     _get_log_path,
 )
 from azure.monitor.opentelemetry._version import VERSION
@@ -22,9 +22,7 @@ _DIAGNOSTIC_LOGGER_FILE_NAME = "applicationinsights-extension.log"
 _SITE_NAME = _env_var_or_default("WEBSITE_SITE_NAME")
 _SUBSCRIPTION_ID_ENV_VAR = _env_var_or_default("WEBSITE_OWNER_NAME")
 _SUBSCRIPTION_ID = (
-    _SUBSCRIPTION_ID_ENV_VAR.split("+")[0]
-    if _SUBSCRIPTION_ID_ENV_VAR
-    else None
+    _SUBSCRIPTION_ID_ENV_VAR.split("+")[0] if _SUBSCRIPTION_ID_ENV_VAR else None
 )
 _logger = logging.getLogger(__name__)
 _DIAGNOSTIC_LOG_PATH = _get_log_path()
@@ -49,7 +47,7 @@ class AzureDiagnosticLogging:
                         + '"properties":{'
                         + '"operation":"Startup", '
                         + f'"sitename":"{_SITE_NAME}", '
-                        + f'"ikey":"{_CUSTOMER_IKEY}", '
+                        + f'"ikey":"{_get_customer_ikey_from_env_var()}", '
                         + f'"extensionVersion":"{_EXTENSION_VERSION}", '
                         + f'"sdkVersion":"{VERSION}", '
                         + f'"subscriptionId":"{_SUBSCRIPTION_ID}", '

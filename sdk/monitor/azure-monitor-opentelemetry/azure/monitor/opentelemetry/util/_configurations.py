@@ -16,6 +16,7 @@ from opentelemetry.environment_variables import (
 from opentelemetry.sdk.environment_variables import OTEL_TRACES_SAMPLER_ARG
 
 from azure.monitor.opentelemetry._constants import (
+    DISABLE_AZURE_CORE_TRACING_ARG,
     DISABLE_LOGGING_ARG,
     DISABLE_METRICS_ARG,
     DISABLE_TRACING_ARG,
@@ -54,6 +55,7 @@ def _get_configurations(**kwargs) -> Dict[str, ConfigurationValue]:
     _default_disabled_instrumentations(configurations)
     _default_logging_export_interval_ms(configurations)
     _default_sampling_ratio(configurations)
+    _default_disable_azure_core_tracing(configurations)
 
     # TODO: remove when validation added to BLRP
     if configurations[LOGGING_EXPORT_INTERVAL_MS_ARG] <= 0:
@@ -130,3 +132,8 @@ def _default_sampling_ratio(configurations):
                 e,
             )
     configurations[SAMPLING_RATIO_ARG] = default
+
+
+# TODO: Placeholder for future configuration
+def _default_disable_azure_core_tracing(configurations):
+    configurations[DISABLE_AZURE_CORE_TRACING_ARG] = False
