@@ -6,6 +6,7 @@ azure-core
 six
 isodate
 azure-appconfiguration
+azure-core-tracing-opentelemetry
 azure-keyvault-secrets
 azure-monitor-opentelemetry-exporter
 cryptography

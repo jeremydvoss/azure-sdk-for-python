@@ -829,8 +829,10 @@
     {
       "filename": "sdk/monitor/azure-monitor-opentelemetry*/**/*.py",
       "words": [
+        "asgi",
         "ikey",
         "msecs",
+        "mycontainer",
         "semconv",
         "updown"
       ]
@@ -840,7 +842,6 @@
       "words": [
         "aiopg",
         "asgiref",
-        "asgi",
         "asyncpg",
         "boto",
         "botocore",
