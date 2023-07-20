@@ -134,6 +134,7 @@
     "amqps",
     "apim",
     "Asal",
+    "asgi",
     "astimezone",
     "AsyncIterable",
     "asyncio",
