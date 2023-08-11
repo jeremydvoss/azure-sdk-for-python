@@ -25,6 +25,8 @@ from azure.monitor.opentelemetry.exporter.export._base import (
     BaseExporter,
     ExportResult,
 )
+from azure.monitor.opentelemetry.exporter.export.logs.events import _APPLICATION_INSIGHTS_EVENT_MARKER_ATTRIBUTE
+
 
 _logger = logging.getLogger(__name__)
 
@@ -94,7 +96,9 @@ class AzureMonitorLogExporter(BaseExporter, LogExporter):
 
 
 def _log_data_is_event(log_data: LogData):
-    return False
+    log_record = log_data.log_record
+    is_event = log_record.attributes.get(_APPLICATION_INSIGHTS_EVENT_MARKER_ATTRIBUTE)
+    return is_event is True
 
 # pylint: disable=protected-access
 def _convert_log_to_envelope(log_data: LogData) -> TelemetryItem:
