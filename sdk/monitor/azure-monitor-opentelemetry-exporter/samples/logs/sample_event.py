@@ -27,13 +27,7 @@ exporter = AzureMonitorLogExporter.from_connection_string(
 )
 get_logger_provider().add_log_record_processor(BatchLogRecordProcessor(exporter, schedule_delay_millis=60000))
 
-# Attach LoggingHandler to namespaced logger
-# TODO: JEREVOSS If event handler continues to extend LoggingHandler, remove this.
-handler = LoggingHandler()
-logger = logging.getLogger(__name__)
-logger.addHandler(handler)
-logger.setLevel(logging.INFO)
-
+# Add custom dimensions
 track_event("Hello World!", {"debug": "true"})
 
 # Telemetry records are flushed automatically upon application exit
