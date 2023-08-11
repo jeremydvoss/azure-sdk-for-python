@@ -69,10 +69,7 @@ class AzureMonitorLogExporter(BaseExporter, LogExporter):
         if not log_data:
             return None
         envelope = None
-        if _log_data_is_event(log_data):
-            envelope = _convert_event_to_envelope(log_data)
-        else:
-            envelope = _convert_log_to_envelope(log_data)
+        envelope = _convert_log_to_envelope(log_data)
         envelope.instrumentation_key = self._instrumentation_key
         return envelope
 
@@ -114,7 +111,7 @@ def _convert_log_to_envelope(log_data: LogData) -> TelemetryItem:
     )
     properties = _utils._filter_custom_properties(
         log_record.attributes,
-        lambda key, val: not _is_opentelemetry_standard_attribute(key)
+        lambda key, val: not _is_opentelemetry_standard_attribute(key) and key != _APPLICATION_INSIGHTS_EVENT_MARKER_ATTRIBUTE
     )
     exc_type = log_record.attributes.get(SpanAttributes.EXCEPTION_TYPE)
     exc_message = log_record.attributes.get(SpanAttributes.EXCEPTION_MESSAGE)
@@ -122,8 +119,22 @@ def _convert_log_to_envelope(log_data: LogData) -> TelemetryItem:
     stack_trace = log_record.attributes.get(SpanAttributes.EXCEPTION_STACKTRACE)
     severity_level = _get_severity_level(log_record.severity_number)
 
+    # Event telemetry
+    if _log_data_is_event(log_data):
+        measurements = {}
+        if (hasattr(log_record, 'custom_measurements') and
+                isinstance(log_record.custom_measurements, dict)):
+            measurements.update(log_record.custom_measurements)
+
+        envelope.name = 'Microsoft.ApplicationInsights.Event'
+        data = TelemetryEventData(
+            name=str(log_record.body)[:32768],
+            properties=properties,
+            measurements=measurements,
+        )
+        envelope.data = MonitorBase(base_data=data, base_type="EventData")
     # Exception telemetry
-    if exc_type is not None or exc_message is not None:
+    elif exc_type is not None or exc_message is not None:
         envelope.name = _EXCEPTION_ENVELOPE_NAME
         has_full_stack = stack_trace is not None
         if not exc_message:
@@ -151,31 +162,6 @@ def _convert_log_to_envelope(log_data: LogData) -> TelemetryItem:
             properties=properties,
         )
         envelope.data = MonitorBase(base_data=data, base_type="MessageData")
-
-    return envelope
-
-# pylint: disable=protected-access
-def _convert_event_to_envelope(log_data: LogData) -> TelemetryItem:
-    log_record = log_data.log_record
-    envelope = _utils._create_telemetry_item(log_record.timestamp)
-
-    properties = {}
-    if (hasattr(log_record, 'custom_dimensions') and
-            isinstance(log_record.custom_dimensions, dict)):
-        properties.update(log_record.custom_dimensions)
-
-    measurements = {}
-    if (hasattr(log_record, 'custom_measurements') and
-            isinstance(log_record.custom_measurements, dict)):
-        measurements.update(log_record.custom_measurements)
-
-    envelope.name = 'Microsoft.ApplicationInsights.Event'
-    data = TelemetryEventData(
-        name=str(log_record.body)[:32768],
-        properties=properties,
-        measurements=measurements,
-    )
-    envelope.data = MonitorBase(base_data=data, base_type="EventData")
 
     return envelope
 
