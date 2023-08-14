@@ -34,9 +34,11 @@ def track_event(name: str, custom_dimensions: dict[str, str], custom_measurement
     #         "ab": "ba",
     #     }
     # })
+    # Turn into string because the OTel log record does not allow for dictionaries in attributes
     custom_dimensions = dumps(custom_dimensions)
     custom_measurements = dumps(custom_measurements)
     _event_logger.info(name, extra={
-        "customDimensions": custom_dimensions,
-        "customMeasurements": custom_measurements
+        "custom_dimensions": custom_dimensions,
+        "custom_measurements": custom_measurements,
+        "x": {},
     })

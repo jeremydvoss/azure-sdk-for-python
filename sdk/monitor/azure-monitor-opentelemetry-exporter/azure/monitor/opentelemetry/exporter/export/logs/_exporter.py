@@ -122,13 +122,23 @@ def _convert_log_to_envelope(log_data: LogData) -> TelemetryItem:
 
     # Event telemetry
     if _log_data_is_event(log_data):
-        # measurements = {}
-        measurements = {"foo": 0.5}
-        custom_dimensions = loads(properties["customDimensions"])
-        custom_measurements = loads(properties["customMeasurements"])
-        # if (hasattr(log_record, 'custom_measurements') and
-        #         isinstance(log_record.custom_measurements, dict)):
-        #     measurements.update(log_record.custom_measurements)
+        # Turn into string because the OTel log record does not allow for dictionaries in attributes
+        custom_dimensions = {}
+        print(log_record.attributes)
+        print(properties["custom_dimensions"])
+        if ("custom_dimensions" in properties and
+                isinstance(properties["custom_dimensions"], dict)):
+            json = loads(properties["custom_dimensions"])
+            print(json)
+            custom_dimensions.update(loads(properties["custom_dimensions"]))
+
+        print(properties["custom_measurements"])
+        custom_measurements = {}
+        if ("custom_measurements" in properties and
+                isinstance(properties["custom_measurements"], dict)):
+            json = loads(properties["custom_measurements"])
+            print(json)
+            custom_measurements.update(loads(properties["custom_measurements"]))
 
         envelope.name = 'Microsoft.ApplicationInsights.Event'
         data = TelemetryEventData(
