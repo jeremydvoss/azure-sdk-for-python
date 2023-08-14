@@ -20,6 +20,12 @@ from opentelemetry.sdk._logs.export import BatchLogRecordProcessor
 
 from azure.monitor.opentelemetry.exporter import AzureMonitorLogExporter, track_event
 
+from opentelemetry import trace
+from opentelemetry.sdk.trace import TracerProvider
+
+trace.set_tracer_provider(TracerProvider())
+tracer = trace.get_tracer(__name__)
+
 logger_provider = LoggerProvider()
 set_logger_provider(logger_provider)
 exporter = AzureMonitorLogExporter.from_connection_string(
@@ -31,8 +37,10 @@ get_logger_provider().add_log_record_processor(BatchLogRecordProcessor(exporter,
 # track_event("Hello World!", {"debug": "true",
 #                              "custom_measurements": {"foo": "bar"},
 #                              })
-track_event("Hello World!", {"a": "b"}, {"c": 0.5})
-# track_event("Hello World!", {"debug": "true"})
+# track_event("Hello World!", {"a": "b"}, {"c": 0.5})
+tracer = trace.get_tracer(__name__)
+with tracer.start_as_current_span("foo"):
+    track_event("Hello World!", {"debug": "true"})
 
 # Telemetry records are flushed automatically upon application exit
 # If you would like to flush records manually yourself, you can call force_flush()

@@ -26,19 +26,6 @@ class _AzureMonitorEventTracker:
             _event_logger.setLevel(INFO)
             _AzureMonitorEventTracker._initialized = True
 
-def track_event(name: str, custom_dimensions: dict[str, str], custom_measurements: dict[str, float]):
+def track_event(name: str, custom_dimensions: dict[str, str]):
     _AzureMonitorEventTracker._initialize()
-    # _event_logger.info("test_event", extra={
-    #     "a": {
-    #         "aa": "aa",
-    #         "ab": "ba",
-    #     }
-    # })
-    # Turn into string because the OTel log record does not allow for dictionaries in attributes
-    custom_dimensions = dumps(custom_dimensions)
-    custom_measurements = dumps(custom_measurements)
-    _event_logger.info(name, extra={
-        "custom_dimensions": custom_dimensions,
-        "custom_measurements": custom_measurements,
-        "x": {},
-    })
+    _event_logger.info(name, extra=custom_dimensions)
