@@ -28,7 +28,11 @@ exporter = AzureMonitorLogExporter.from_connection_string(
 get_logger_provider().add_log_record_processor(BatchLogRecordProcessor(exporter, schedule_delay_millis=60000))
 
 # Add custom dimensions
-track_event("Hello World!", {"debug": "true"})
+# track_event("Hello World!", {"debug": "true",
+#                              "custom_measurements": {"foo": "bar"},
+#                              })
+track_event("Hello World!", {"a": "b"}, {"c": 0.5})
+# track_event("Hello World!", {"debug": "true"})
 
 # Telemetry records are flushed automatically upon application exit
 # If you would like to flush records manually yourself, you can call force_flush()

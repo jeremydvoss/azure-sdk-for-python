@@ -1,5 +1,6 @@
 # Copyright (c) Microsoft Corporation. All rights reserved.
 # Licensed under the MIT License.
+from json import loads, dumps
 from logging import LogRecord, getLogger, INFO
 
 from opentelemetry.sdk._logs import LoggingHandler
@@ -25,6 +26,17 @@ class _AzureMonitorEventTracker:
             _event_logger.setLevel(INFO)
             _AzureMonitorEventTracker._initialized = True
 
-def track_event(name: str, custom_dimensions: dict):
+def track_event(name: str, custom_dimensions: dict[str, str], custom_measurements: dict[str, float]):
     _AzureMonitorEventTracker._initialize()
-    _event_logger.info(name, extra=custom_dimensions)
+    # _event_logger.info("test_event", extra={
+    #     "a": {
+    #         "aa": "aa",
+    #         "ab": "ba",
+    #     }
+    # })
+    custom_dimensions = dumps(custom_dimensions)
+    custom_measurements = dumps(custom_measurements)
+    _event_logger.info(name, extra={
+        "customDimensions": custom_dimensions,
+        "customMeasurements": custom_measurements
+    })

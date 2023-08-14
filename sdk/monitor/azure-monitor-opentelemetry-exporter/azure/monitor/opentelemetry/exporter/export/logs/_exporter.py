@@ -1,5 +1,6 @@
 # Copyright (c) Microsoft Corporation. All rights reserved.
 # Licensed under the MIT License.
+from json import loads
 import logging
 from typing import Sequence, Any
 
@@ -121,16 +122,19 @@ def _convert_log_to_envelope(log_data: LogData) -> TelemetryItem:
 
     # Event telemetry
     if _log_data_is_event(log_data):
-        measurements = {}
-        if (hasattr(log_record, 'custom_measurements') and
-                isinstance(log_record.custom_measurements, dict)):
-            measurements.update(log_record.custom_measurements)
+        # measurements = {}
+        measurements = {"foo": 0.5}
+        custom_dimensions = loads(properties["customDimensions"])
+        custom_measurements = loads(properties["customMeasurements"])
+        # if (hasattr(log_record, 'custom_measurements') and
+        #         isinstance(log_record.custom_measurements, dict)):
+        #     measurements.update(log_record.custom_measurements)
 
         envelope.name = 'Microsoft.ApplicationInsights.Event'
         data = TelemetryEventData(
             name=str(log_record.body)[:32768],
-            properties=properties,
-            measurements=measurements,
+            properties=custom_dimensions,
+            measurements=custom_measurements,
         )
         envelope.data = MonitorBase(base_data=data, base_type="EventData")
     # Exception telemetry
