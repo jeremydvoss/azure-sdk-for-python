@@ -9,8 +9,8 @@ from opentelemetry.util.types import Attributes
 
 _APPLICATION_INSIGHTS_EVENT_MARKER_ATTRIBUTE = "APPLICATION_INSIGHTS_EVENT_MARKER_ATTRIBUTE"
 _event_logger = getLogger(__name__)
+_event_logger.propagate = False
 
-# TODO: JEREVOSS: Consider a handler that ONLY adds the attribute and does not extend LoggingHandler. This would only work if the root handler is added too
 class _AzureMonitorOpenTelemetryEventHandler(LoggingHandler):
     @staticmethod
     def _get_attributes(record: LogRecord) -> Attributes:
@@ -18,21 +18,11 @@ class _AzureMonitorOpenTelemetryEventHandler(LoggingHandler):
         attributes[_APPLICATION_INSIGHTS_EVENT_MARKER_ATTRIBUTE] = True
         return attributes
 
-class _AzureMonitorEventHandler(Handler):
-    @staticmethod
-    def _get_attributes(record: LogRecord) -> Attributes:
-        attributes = LoggingHandler._get_attributes(record)
-        attributes[_APPLICATION_INSIGHTS_EVENT_MARKER_ATTRIBUTE] = True
-        return attributes
-    
-    def emit(self, record: LogRecord) -> None:
-        return super().emit(record)
-
 class _AzureMonitorEventTracker:
     _initialized = False
     def _initialize():
         if not _AzureMonitorEventTracker._initialized:
-            _event_logger.addHandler(_AzureMonitorEventHandler())
+            _event_logger.addHandler(_AzureMonitorOpenTelemetryEventHandler())
             _event_logger.setLevel(INFO)
             _AzureMonitorEventTracker._initialized = True
 
