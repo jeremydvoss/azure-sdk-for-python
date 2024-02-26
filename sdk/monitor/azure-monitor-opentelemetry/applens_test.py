@@ -11,6 +11,7 @@ from os.path import exists, join
 
 from azure.monitor.opentelemetry._constants import (
     _get_log_path,
+    _LOG_PATH_LINUX_OLD,
 )
 
 _DIAGNOSTIC_LOGGER_FILE_NAME = "applicationinsights-extension.log"
@@ -66,16 +67,20 @@ from azure.monitor.opentelemetry._constants import (
 
 _STATUS_LOG_PATH = _get_log_path(status_log_path=True)
 
-status_json = "blah"
-if not exists(_STATUS_LOG_PATH):
-    makedirs(_STATUS_LOG_PATH)
-# Change to be hostname and pid
-status_logger_file_name = "status_logger_file_name"
-with open(
-    join(_STATUS_LOG_PATH, status_logger_file_name),
-    "w",
-    encoding="utf8"
-) as f:
-    f.seek(0)
-    f.write(dumps(status_json))
-    f.truncate()
+def log_status(status_log_path):
+    status_json = "blah"
+    if not exists(status_log_path):
+        makedirs(status_log_path)
+    # Change to be hostname and pid
+    status_logger_file_name = "status_logger_file_name"
+    with open(
+        join(_STATUS_LOG_PATH, status_logger_file_name),
+        "w",
+        encoding="utf8"
+    ) as f:
+        f.seek(0)
+        f.write(dumps(status_json))
+        f.truncate()
+
+log_status(_STATUS_LOG_PATH)
+log_status(_LOG_PATH_LINUX_OLD)
