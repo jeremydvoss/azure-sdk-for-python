@@ -58,14 +58,14 @@ _logger.error("error")
 ############################################################
 
 from json import dumps
-from os import makedirs
-from os.path import exists, join
+# from os import makedirs
+# from os.path import exists, join
 
-from azure.monitor.opentelemetry._constants import (
-    _get_log_path,
-)
+# from azure.monitor.opentelemetry._constants import (
+#     _get_log_path,
+# )
 
-_STATUS_LOG_PATH = _get_log_path(status_log_path=True)
+# _STATUS_LOG_PATH = _get_log_path(status_log_path=True)
 
 def log_status(status_log_path):
     status_json = "blah"
@@ -74,7 +74,7 @@ def log_status(status_log_path):
     # Change to be hostname and pid
     status_logger_file_name = "status_logger_file_name"
     with open(
-        join(_STATUS_LOG_PATH, status_logger_file_name),
+        join(status_log_path, status_logger_file_name),
         "w",
         encoding="utf8"
     ) as f:
@@ -82,5 +82,5 @@ def log_status(status_log_path):
         f.write(dumps(status_json))
         f.truncate()
 
-log_status(_STATUS_LOG_PATH)
+log_status(_DIAGNOSTIC_LOG_PATH)
 log_status(_LOG_PATH_LINUX_OLD)
