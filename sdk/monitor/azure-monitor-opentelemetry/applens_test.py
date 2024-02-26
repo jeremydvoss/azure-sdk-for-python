@@ -53,3 +53,29 @@ _logger.addHandler(f_handler)
 _logger.info("info")
 _logger.warning("warning")
 _logger.error("error")
+
+############################################################
+
+from json import dumps
+from os import makedirs
+from os.path import exists, join
+
+from azure.monitor.opentelemetry._constants import (
+    _get_log_path,
+)
+
+_STATUS_LOG_PATH = _get_log_path(status_log_path=True)
+
+status_json = "blah"
+if not exists(_STATUS_LOG_PATH):
+    makedirs(_STATUS_LOG_PATH)
+# Change to be hostname and pid
+status_logger_file_name = "status_logger_file_name"
+with open(
+    join(_STATUS_LOG_PATH, status_logger_file_name),
+    "w",
+    encoding="utf8"
+) as f:
+    f.seek(0)
+    f.write(dumps(status_json))
+    f.truncate()
