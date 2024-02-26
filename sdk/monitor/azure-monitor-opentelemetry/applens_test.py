@@ -33,7 +33,6 @@ log_format = (
     + '"message":"%(message)s", '
     + '"properties":{'
     + '"operation":"Startup", '
-    + '"msgId":"%(msgId)s", '
     + '"language":"python"'
     + "}"
     + "}"
