@@ -40,9 +40,12 @@ class AzureDiagnosticLogging:
 
     @classmethod
     def _initialize(cls):
-        print("AzureDiagnosticLogging._initialize")
         with AzureDiagnosticLogging._lock:
             if not AzureDiagnosticLogging._initialized:
+                print("AzureDiagnosticLogging._initialize")
+                print("_DIAGNOSTIC_LOG_PATH: %s" % _DIAGNOSTIC_LOG_PATH)
+                print("_DIAGNOSTIC_LOGGER_FILE_NAME: %s" % _DIAGNOSTIC_LOGGER_FILE_NAME)
+                print("_IS_DIAGNOSTICS_ENABLED: %s" % _IS_DIAGNOSTICS_ENABLED)
                 if _IS_DIAGNOSTICS_ENABLED and _DIAGNOSTIC_LOG_PATH:
                     log_format = (
                         "{"
@@ -69,11 +72,17 @@ class AzureDiagnosticLogging:
                             _DIAGNOSTIC_LOG_PATH, _DIAGNOSTIC_LOGGER_FILE_NAME
                         )
                     )
+                    print(
+                        join(
+                            _DIAGNOSTIC_LOG_PATH, _DIAGNOSTIC_LOGGER_FILE_NAME
+                        )
+                    )
                     formatter = logging.Formatter(
                         fmt=log_format, datefmt="%Y-%m-%dT%H:%M:%S"
                     )
                     f_handler.setFormatter(formatter)
                     _logger.addHandler(f_handler)
+                    print("initialized")
                     AzureDiagnosticLogging._initialized = True
 
     @classmethod
