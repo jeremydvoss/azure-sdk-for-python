@@ -35,7 +35,7 @@ SPAN_PROCESSORS_ARG = "span_processors"
 # --------------------Diagnostic/status logging------------------------------
 
 # _LOG_PATH_LINUX = "/var/log/applicationinsights"
-_LOG_PATH_LINUX = "~/workplace/azure-sdk-for-python/sdk/monitor/azure-monitor-opentelemetry"
+_LOG_PATH_LINUX = "/home/jeremyvoss/workplace/azure-sdk-for-python/sdk/monitor/azure-monitor-opentelemetry"
 _LOG_PATH_WINDOWS = "\\LogFiles\\ApplicationInsights"
 _IS_ON_APP_SERVICE = "WEBSITE_SITE_NAME" in environ
 # TODO: Add environment variable to enabled diagnostics off of App Service
