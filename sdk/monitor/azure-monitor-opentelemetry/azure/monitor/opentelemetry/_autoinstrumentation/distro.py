@@ -42,17 +42,20 @@ from azure.monitor.opentelemetry._util.configurations import (
 
 class AzureMonitorDistro(BaseDistro):
     def _configure(self, **kwargs) -> None:
+        print("AzureMonitorDistro._configure")
         if not _is_attach_enabled():
             warn(_PREVIEW_ENTRY_POINT_WARNING)
         try:
             _configure_auto_instrumentation()
             AzureStatusLogger.log_status(True)
+            print("AzureMonitorDistro._configure info")
             AzureDiagnosticLogging.info(
                 "Azure Monitor OpenTelemetry Distro configured successfully.",
                 _ATTACH_SUCCESS_DISTRO
             )
         except Exception as e:
             AzureStatusLogger.log_status(False, reason=str(e))
+            print("AzureMonitorDistro._configure error")
             AzureDiagnosticLogging.error(
                 "Azure Monitor OpenTelemetry Distro failed during configuration: %s" % str(e),
                 _ATTACH_FAILURE_DISTRO,

@@ -40,6 +40,7 @@ class AzureDiagnosticLogging:
 
     @classmethod
     def _initialize(cls):
+        print("AzureDiagnosticLogging._initialize")
         with AzureDiagnosticLogging._lock:
             if not AzureDiagnosticLogging._initialized:
                 if _IS_DIAGNOSTICS_ENABLED and _DIAGNOSTIC_LOG_PATH:
@@ -77,15 +78,18 @@ class AzureDiagnosticLogging:
 
     @classmethod
     def info(cls, message: str, message_id: str):
+        print("AzureDiagnosticLogging.info")
         AzureDiagnosticLogging._initialize()
         _logger.info(message, extra={'msgId': message_id})
 
     @classmethod
     def warning(cls, message: str, message_id: str):
+        print("AzureDiagnosticLogging.warning")
         AzureDiagnosticLogging._initialize()
         _logger.warning(message, extra={'msgId': message_id})
 
     @classmethod
     def error(cls, message: str, message_id: str):
+        print("AzureDiagnosticLogging.error")
         AzureDiagnosticLogging._initialize()
         _logger.error(message, extra={'msgId': message_id})
