@@ -25,8 +25,8 @@ _SUBSCRIPTION_ID = (
     _SUBSCRIPTION_ID_ENV_VAR.split("+")[0] if _SUBSCRIPTION_ID_ENV_VAR else None
 )
 _logger = logging.getLogger(__name__)
-_logger.propagate = False
-_logger.setLevel(logging.INFO)
+# _logger.propagate = False
+_logger.setLevel(logging.DEBUG)
 _DIAGNOSTIC_LOG_PATH = _get_log_path()
 _ATTACH_SUCCESS_DISTRO = "4200"
 _ATTACH_SUCCESS_CONFIGURATOR = "4201"
