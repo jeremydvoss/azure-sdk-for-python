@@ -1,14 +1,11 @@
 # Release History
 
-## 1.6.2 (Unreleased)
-
-### Features Added
-
-### Breaking Changes
+## 1.6.2 (9/5/24)
 
 ### Bugs Fixed
 
-### Other Changes
+- Update OTel sdk and instrumentations to fix fastapi bug
+    ([#37206](https://github.com/Azure/azure-sdk-for-python/pull/37206))
 
 ## 1.6.1 (2024-07-30)
 
