@@ -4,6 +4,8 @@
 
 ### Features Added
 
+- Enable live metric for auto instrumentation as opt in
+    ([#XXXXX](https://github.com/Azure/azure-sdk-for-python/pull/XXXXX))
 - Only add OpenTelemetry LoggingHandler if current logger does not have it
     ([#38549](https://github.com/Azure/azure-sdk-for-python/pull/38549))
 - Distro to automatically configure event logger provider
