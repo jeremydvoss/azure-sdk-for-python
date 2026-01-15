@@ -18,9 +18,16 @@ from opentelemetry.sdk._configuration import _OTelSDKConfigurator
 from azure.monitor.opentelemetry.exporter import (  # pylint: disable=import-error,no-name-in-module
     ApplicationInsightsSampler,
 )
+from azure.monitor.opentelemetry.exporter.export._base import (  # pylint: disable=import-error,no-name-in-module
+    _get_authentication_credential,
+)
+from azure.monitor.opentelemetry.exporter._quickpulse import (  # pylint: disable=import-error,no-name-in-module
+    enable_live_metrics,
+)
 from azure.monitor.opentelemetry.exporter._utils import (  # pylint: disable=import-error,no-name-in-module
     _is_attach_enabled,
 )
+
 from azure.monitor.opentelemetry._constants import (
     _PREVIEW_ENTRY_POINT_WARNING,
     LOG_EXPORTER_NAMES_ARG,
@@ -54,6 +61,27 @@ class AzureMonitorConfigurator(_OTelSDKConfigurator):
                 kwargs.setdefault(METRIC_EXPORTER_NAMES_ARG, ["azure_monitor_opentelemetry_exporter"])
             if environ.get(OTEL_LOGS_EXPORTER, "").lower().strip() != "none":
                 kwargs.setdefault(LOG_EXPORTER_NAMES_ARG, ["azure_monitor_opentelemetry_exporter"])
+            
+    """
+    Expected keyword arguments:
+    :param connection_string: The connection string used for your Application Insights resource.
+        This parameter configures the Azure Monitor endpoint for telemetry submission.
+    :type connection_string: Optional[str]
+    :param credential: Token credential, such as ManagedIdentityCredential or
+        ClientSecretCredential, used for Azure Active Directory (AAD) authentication.
+        Used as an alternative to connection string authentication. Defaults to None.
+    :type credential: Optional[Any]
+    :param resource: The OpenTelemetry Resource used for this Python application.
+        Contains application metadata (service name, version, environment, etc.).
+        This is the primary parameter used by the underlying _QuickpulseExporter
+        for application identification and telemetry enrichment.
+    :type resource: Optional[Resource]
+    :return: None
+    :rtype: None
+    """
+    
+            credential =_get_authentication_credential(**kwargs)
+            enable_live_metrics(**kwargs)
             # As of OTel SDK 1.25.0, exporters passed as kwargs will be added to those specified in env vars.
             super()._configure(**kwargs)
             AzureStatusLogger.log_status(True)
