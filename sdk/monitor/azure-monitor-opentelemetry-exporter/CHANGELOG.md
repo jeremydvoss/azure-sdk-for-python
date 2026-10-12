@@ -4,6 +4,10 @@
 
 ### Features Added
 
+- Use OneSettings to route SDK Stats with the configured default or EU connection string, while retaining the
+  existing Breeze connection string when the setting is missing or invalid.
+  ([#49072](https://github.com/Azure/azure-sdk-for-python/pull/49072))
+
 ### Breaking Changes
 
 ### Bugs Fixed
@@ -13,8 +17,6 @@
   ([#48979](https://github.com/Azure/azure-sdk-for-python/pull/48979))
 
 ### Other Changes
-
-- Preserve the built-in Breeze SDKStats route when the OneSettings feature key is unavailable or invalid, while still applying OneSettings connection-string updates when present.
 
 ## 1.0.0b57 (2026-09-02)
 
